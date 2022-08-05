@@ -7,6 +7,7 @@ public final class GameManager {
     TextureManager textureManager = new TextureManager(rlj);
     RenderManager renderManager = new RenderManager(rlj);
     InputManager inputManager = new InputManager(rlj);
+    World world = new World();
 
     public static GameManager getInstance() {
         if (INSTANCE == null) {

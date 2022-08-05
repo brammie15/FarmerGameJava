@@ -5,8 +5,8 @@ import static java.lang.Math.abs;
 
 public class Player extends AdvancedObject {
 
-    public Player(Texture2D texture2D, Transform transform, int maxFrame, Vector2 frameSize) {
-        super(texture2D, transform, maxFrame,frameSize);
+    public Player(Texture2D texture2D, Transform transform, int maxFrame, Vector2 frameSize, int renderPriority) {
+        super(texture2D, transform, maxFrame,frameSize, renderPriority);
     }
 
     public void move(float x, float y) {

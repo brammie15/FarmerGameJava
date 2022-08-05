@@ -1,56 +1,52 @@
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.input.Keyboard;
+import com.raylib.java.core.input.Mouse;
+import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 
-import java.util.ArrayList;
-
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         GameManager r = GameManager.getInstance();
         Raylib rlj = r.rlj;
         TextureManager manager = r.textureManager;
         r.initWindow(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, "Dingus");
         manager.init();
 
-//        FloorBlock block = new FloorBlock(texture, new Vector2(Constands.WINDOW_WIDTH - Constands.TILE_WIDTH * Constands.SCALE, Constands.WINDOW_HEIGHT - Constands.TILE_HEIGHT * Constands.SCALE));
-        ArrayList<FloorBlock> blocks = new ArrayList<FloorBlock>();
+        r.world.addObject("selectionIcon", new SelectionIcon(manager.getTexture("selectionIcon"), new Transform(new Vector2(0, 0), Constants.SCALE), 10));
+
         for (int i = 0; i < Constants.TILE_X; i++) {
-            blocks.add(new FloorBlock(manager.getTexture("grass"), new Vector2(Constants.TILE_WIDTH * Constants.SCALE * i, Constants.WINDOW_HEIGHT - Constants.TILE_HEIGHT * Constants.SCALE)));
+            r.world.addObject("floor" + i, new FloorBlock(manager.getTexture("grass"), new Vector2(Constants.TILE_WIDTH * Constants.SCALE * i, Constants.WINDOW_HEIGHT - Constants.TILE_HEIGHT * Constants.SCALE), 0));
         }
-        Player p = new Player(manager.getTexture("player"), new Transform(new Vector2(Constants.WINDOW_WIDTH/2, GridUtils.gridPosToWorldPos(new Vector2(5,2)).y),Constants.SCALE),1, new Vector2(16,32));
-        SelectionIcon selector = new SelectionIcon(manager.getTexture("selectionIcon"), new Transform(GridUtils.gridPosToWorldPos(5,4),10));
-        boolean selecting = false;
 
-        while (!rlj.core.WindowShouldClose()){
+        while (!rlj.core.WindowShouldClose()) {
             //Update
-            if(r.inputManager.isKeyDown(Keyboard.KEY_D)){
-                p.move(5, 0);
-            }
-            if(r.inputManager.isKeyDown(Keyboard.KEY_A)){
-                p.move(-5, 0);
-            }
+            Vector2 mousePos = Raymath.Vector2SubtractValue(r.inputManager.getMouse(), (float)Constants.TILE_WIDTH * Constants.SCALE / 2);
+            SelectionIcon selectionIcon = (SelectionIcon) r.world.getObject("selectionIcon");
+            selectionIcon.setPos(GridUtils.screenPosToGridPos(mousePos));
 
-            if(r.inputManager.isKeyPressed(Keyboard.KEY_SPACE) && r.inputManager.isKeyDown(Keyboard.KEY_S)){
-                int selectionIndex = Math.round(p.transform.position.x/(Constants.TILE_HEIGHT * Constants.SCALE));
-                blocks.get(selectionIndex).use();
-            }
-            float Xpos = p.transform.position.x;
-            selector.setPos(new Vector2(Math.round(Xpos/(Constants.TILE_HEIGHT * Constants.SCALE)), 4));
-            selecting = r.inputManager.isKeyDown(Keyboard.KEY_S);
+
 
             //Render
             r.renderManager.beginRender();
-            rlj.textures.DrawTextureRec(manager.getTexture("sky"),new Rectangle(0,0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT),new Vector2(0,0) , Color.WHITE);
-            for (FloorBlock block : blocks) {
-                r.renderManager.drawObject(block);
-                r.renderManager.drawObject(block.plant);
+            if(rlj.core.IsMouseButtonPressed(Mouse.MouseButton.MOUSE_BUTTON_LEFT)){
+                Vector2 gridPos = GridUtils.screenPosToGridPos(r.world.getObject("selectionIcon").transform.position);
+                r.renderManager.drawCircle(gridPos, 10, Color.BLUE);
+                Object object = r.world.getObject(gridPos);
+                if(object != null){
+                    if(object.getClass() == FloorBlock.class){
+                        ((FloorBlock) object).use();
+                    }
+                }
             }
-            r.renderManager.drawObject(p);
-            if(selecting){
-                r.renderManager.drawObject(selector);
+            rlj.textures.DrawTextureRec(manager.getTexture("sky"), new Rectangle(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT), new Vector2(0, 0), Color.WHITE);
+            for (EngineObject object : r.world.getRenderOrder()) {
+                r.renderManager.drawObject(object);
+                r.renderManager.drawCircle(object.transform.position, 10, Color.ORANGE);
             }
+
+            r.renderManager.drawCircle(r.inputManager.getMouseX(), r.inputManager.getMouseY(), 10, Color.RED);
+            r.renderManager.drawCircle(GridUtils.gridPosToWorldPos(GridUtils.screenPosToGridPos(r.inputManager.getMouse())), 10, Color.BLUE);
             r.renderManager.endRender();
         }
     }

@@ -10,4 +10,10 @@ public class GridUtils {
     public static Vector2 gridPosToWorldPos(int x, int y){
         return gridPosToWorldPos(new Vector2(x, y));
     }
+
+    //convert screen pos to grid pos
+    //TODO: fix this stupid ass fucntion to fix the gridPos to the TR corner EVERY TIME
+    public static Vector2 screenPosToGridPos(Vector2 screenPos){
+        return new Vector2(Math.round(screenPos.x / (Constants.TILE_WIDTH * Constants.SCALE)), Math.round(screenPos.y / (Constants.TILE_HEIGHT * Constants.SCALE)));
+    }
 }

@@ -1,4 +1,5 @@
 import com.raylib.java.Raylib;
+import com.raylib.java.raymath.Vector2;
 
 public class InputManager {
 
@@ -6,6 +7,15 @@ public class InputManager {
 
     public InputManager(Raylib rlj) {
         this.rlj = rlj;
+    }
+    public int getMouseX() {
+        return rlj.core.GetMouseX();
+    }
+    public int getMouseY() {
+        return rlj.core.GetMouseY();
+    }
+    public Vector2 getMouse(){
+        return new Vector2(getMouseX(), getMouseY());
     }
 
     public boolean isKeyDown(int key) {

@@ -18,10 +18,10 @@ public class RenderManager {
         Rectangle destination = new Rectangle(sprite.position.x, sprite.position.y, sprite.scale * sprite.texture.width, sprite.scale * sprite.texture.height);
         rlj.textures.DrawTextureTiled(sprite.texture, source, destination, new Vector2(0,0), 0,1, Color.WHITE);
     }
-    public <T extends Object> void drawObject(T object) {
+    public <T extends EngineObject> void drawObject(T object) {
         drawObject(object, Color.WHITE);
     }
-    public <T extends Object> void drawObject(T object, Color color) {
+    public <T extends EngineObject> void drawObject(T object, Color color) {
         Rectangle source = new Rectangle(0, 0, object.sprite.texture.width, object.sprite.texture.height);
         Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * object.sprite.texture.width, object.transform.scale * object.sprite.texture.height);
         rlj.textures.DrawTextureEx(object.sprite.texture, object.transform.position, 0, object.transform.scale, color);
@@ -44,6 +44,9 @@ public class RenderManager {
     }
     public void drawCircle(int x, int y, int radius, Color color) {
         rlj.shapes.DrawCircle(x, y, radius, color);
+    }
+    public void drawCircle(Vector2 pos, int radius, Color color) {
+        drawCircle((int) pos.x, (int) pos.y, radius, color);
     }
     public void drawLine(int x1, int y1, int x2, int y2, Color color) {
         rlj.shapes.DrawLine(x1, y1, x2, y2, color);
