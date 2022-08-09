@@ -8,14 +8,14 @@ import dev.brammie15.util.Transform;
 
 public class AdvancedObject extends EngineObject {
 
-    public int maxFrame;
+    public final int maxFrame;
     public int currentFrame = 0;
-    public Vector2 frameSize;
+    public final Vector2 frameSize;
 
     public AdvancedObject(Texture2D texture2D, Transform transform, int maxFrame, Vector2 frameSize, int renderPriority) {
         super(texture2D, transform, renderPriority);
         this.transform = transform;
-        this.sprite = new Sprite(texture2D, transform.position);
+        this.sprite = new Sprite(texture2D, transform);
         this.maxFrame = maxFrame;
         this.frameSize = frameSize;
     }

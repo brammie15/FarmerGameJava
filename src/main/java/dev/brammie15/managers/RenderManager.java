@@ -9,7 +9,7 @@ import dev.brammie15.util.Sprite;
 import dev.brammie15.objects.AdvancedObject;
 import dev.brammie15.objects.EngineObject;
 
-public class RenderManager {
+public class RenderManager implements CommonManager {
 
     private final Raylib rlj;
 
@@ -20,8 +20,8 @@ public class RenderManager {
 
     public void drawSprite(Sprite sprite) {
         Rectangle source = new Rectangle(0, 0, sprite.texture.width, sprite.texture.height);
-        Rectangle destination = new Rectangle(sprite.position.x, sprite.position.y, sprite.scale * sprite.texture.width, sprite.scale * sprite.texture.height);
-        rlj.textures.DrawTextureTiled(sprite.texture, source, destination, new Vector2(0,0), 0,1, Color.WHITE);
+        Rectangle destination = new Rectangle(sprite.transform.position.x, sprite.transform.position.y, sprite.transform.scale * sprite.texture.width, sprite.transform.scale * sprite.texture.height);
+        rlj.textures.DrawTextureEx(sprite.texture, sprite.transform.position, 0, sprite.transform.scale, Color.WHITE);
     }
     public <T extends EngineObject> void drawObject(T object) {
         drawObject(object, Color.WHITE);
@@ -61,5 +61,10 @@ public class RenderManager {
     }
     public void clearBackground() {
         rlj.core.ClearBackground(Color.WHITE);
+    }
+
+    @Override
+    public void init(GameManager gameManager) {
+
     }
 }

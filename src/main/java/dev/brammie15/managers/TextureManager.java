@@ -7,13 +7,11 @@ import com.raylib.java.textures.rTextures;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TextureManager {
-    public Map<String, Texture2D> textureMap = new HashMap<String, Texture2D>();
-    private final Raylib rlj;
+public class TextureManager implements CommonManager {
+    public final Map<String, Texture2D> textureMap = new HashMap<>();
 
 
     public TextureManager(Raylib rlj){
-        this.rlj = rlj;
     }
 
     public void addTexture(String name, String path) {
@@ -25,6 +23,12 @@ public class TextureManager {
 
 
     public Texture2D getTexture(String name) {
+        Texture2D texture = textureMap.get(name);
+        if (texture == null) {
+            System.out.println("Texture not found: " + name);
+            return null;
+        }
+        System.out.println("Found texture: " + name);
         return textureMap.get(name);
     }
 
@@ -34,7 +38,8 @@ public class TextureManager {
         }
     }
 
-    public void init(){
+    @Override
+    public void init(GameManager gameManager){
         this.addTexture("grass", "textures/grass.png");
         this.addTexture("dirt", "textures/dirt.png");
         this.addTexture("selectionIcon", "textures/Selection.png");

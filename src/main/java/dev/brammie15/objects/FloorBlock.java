@@ -5,7 +5,7 @@ import com.raylib.java.textures.Texture2D;
 import dev.brammie15.Constants;
 import dev.brammie15.managers.GameManager;
 import dev.brammie15.util.Transform;
-import dev.brammie15.Interactable;
+import dev.brammie15.interfaces.Interactable;
 
 public class FloorBlock extends EngineObject implements Interactable {
 
@@ -20,6 +20,15 @@ public class FloorBlock extends EngineObject implements Interactable {
     @Override
     public void interact() {
         this.sprite.texture = GameManager.getInstance().textureManager.getTexture("dirt");
+        this.plant = null;
 
+    }
+
+    @Override
+    public void draw(GameManager manager) {
+        super.draw(manager);
+        if(this.plant != null){
+            this.plant.draw(manager);
+        }
     }
 }

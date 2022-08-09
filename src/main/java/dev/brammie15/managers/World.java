@@ -9,9 +9,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class World {
+public class World implements CommonManager {
 
-    public Map<String, EngineObject> world = new HashMap<String, EngineObject>();
+    public final Map<String, EngineObject> world = new HashMap<>();
 
     public <T extends EngineObject> void addObject(String id, T object) {
         world.put(id, object);
@@ -35,9 +35,9 @@ public class World {
         ArrayList<EngineObject> objects = new ArrayList<>();
         for (EngineObject object : world.values()) {
             Vector2 objectGridPos = GridUtils.screenPosToGridPos(object.transform.position);
-            System.out.println("Objects pos: " + objectGridPos.x + ", " + objectGridPos.y);
+//            System.out.println("Objects pos: " + objectGridPos.x + ", " + objectGridPos.y);
             if (GridUtils.screenPosToGridPos(object.transform.position).x == gridPos.x && GridUtils.screenPosToGridPos(object.transform.position).y == gridPos.y) {
-                System.out.println("Object found");
+//                System.out.println("Object found");
                 objects.add(object);
             }
         }
@@ -49,6 +49,7 @@ public class World {
         }
     }
 
-
-
+    @Override
+    public void init(GameManager gameManager) {
+    }
 }

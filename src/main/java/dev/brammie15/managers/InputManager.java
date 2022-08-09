@@ -3,7 +3,7 @@ package dev.brammie15.managers;
 import com.raylib.java.Raylib;
 import com.raylib.java.raymath.Vector2;
 
-public class InputManager {
+public class InputManager implements CommonManager {
 
     private final Raylib rlj;
 
@@ -26,5 +26,10 @@ public class InputManager {
 
     public boolean isKeyPressed(int key) {
         return rlj.core.IsKeyPressed(key);
+    }
+
+    @Override
+    public void init(GameManager gameManager) {
+
     }
 }

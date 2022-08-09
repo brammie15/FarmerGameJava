@@ -16,8 +16,6 @@ public class GridUtils {
     }
 
     //convert screen pos to grid pos
-    //TODO: fix this stupid ass fucntion to fix the gridPos to the TR corner EVERY TIME
-    //Fixed
     public static Vector2 screenPosToGridPos(Vector2 screenPos){
         return new Vector2((float) Math.floor(screenPos.x / (Constants.TILE_WIDTH * Constants.SCALE)), (float) Math.floor(screenPos.y / (Constants.TILE_HEIGHT * Constants.SCALE)));
     }

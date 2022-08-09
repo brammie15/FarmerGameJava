@@ -5,25 +5,16 @@ import com.raylib.java.textures.Texture2D;
 
 public class Sprite {
     public Texture2D texture;
-    public Vector2 position;
-    public float scale;
+    public final Transform transform;
 
     public Sprite() {
         this.texture = null;
-        this.position = new Vector2(-1, -1);
-        this.scale = -1;
-    }
+        this.transform = new Transform(new Vector2(0, 0), 0);
+        }
 
-    public Sprite(Texture2D texture, Vector2 position, float scale) {
+    public Sprite(Texture2D texture, Transform transform) {
         this.texture = texture;
-        this.position = position;
-        this.scale = scale;
-    }
-
-    public Sprite(Texture2D texture, Vector2 position) {
-        this.texture = texture;
-        this.position = position;
-        this.scale = 1;
+        this.transform = transform;
     }
 
 }
