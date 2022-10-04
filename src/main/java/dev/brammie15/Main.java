@@ -8,10 +8,8 @@ import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
 import dev.brammie15.managers.GameManager;
 import dev.brammie15.managers.TextureManager;
-import dev.brammie15.objects.EngineObject;
-import dev.brammie15.objects.FloorBlock;
-import dev.brammie15.objects.InventorySlot;
-import dev.brammie15.objects.SelectionIcon;
+import dev.brammie15.core.EngineObject;
+import dev.brammie15.objects.*;
 import dev.brammie15.util.GridUtils;
 import dev.brammie15.util.Transform;
 
@@ -34,6 +32,7 @@ public class Main {
         for (int i = 0; i < 3; i++) {
             r.world.addObject("slot" + i,new InventorySlot(textureManager.getTexture("inventorySlot"), new Transform(GridUtils.gridPosToWorldPos(i,0), 7.26F), 9, i));
         }
+        r.inventoryManager.setItemInSlot(1, new ItemStack(new Item(r.textureManager.getTexture("hoe"),"hoe", Constants.ZERO, 10), 1));
 
         while (!rlj.core.WindowShouldClose()) {
             //Update

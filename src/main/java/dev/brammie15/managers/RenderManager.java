@@ -6,8 +6,8 @@ import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.rTextures;
 import dev.brammie15.util.Sprite;
-import dev.brammie15.objects.AdvancedObject;
-import dev.brammie15.objects.EngineObject;
+import dev.brammie15.core.AdvancedObject;
+import dev.brammie15.core.EngineObject;
 
 public class RenderManager implements CommonManager {
 
@@ -26,6 +26,7 @@ public class RenderManager implements CommonManager {
     public <T extends EngineObject> void drawObject(T object) {
         drawObject(object, Color.WHITE);
     }
+
     public <T extends EngineObject> void drawObject(T object, Color color) {
         Rectangle source = new Rectangle(0, 0, object.sprite.texture.width, object.sprite.texture.height);
         Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * object.sprite.texture.width, object.transform.scale * object.sprite.texture.height);
@@ -65,6 +66,12 @@ public class RenderManager implements CommonManager {
 
     @Override
     public void init(GameManager gameManager) {
+
+    }
+
+    @Override
+    public void dispose() {
+
 
     }
 }

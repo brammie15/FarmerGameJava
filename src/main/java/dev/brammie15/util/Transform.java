@@ -5,8 +5,8 @@ import com.raylib.java.raymath.Vector3;
 
 public class Transform {
     public Vector2 position;
-    public final float scale;
-    public final Vector3 rotation;
+    public float scale;
+    public Vector3 rotation;
 
     public Transform() {
         this.position = new Vector2(0, 0);

@@ -1,4 +1,4 @@
-package dev.brammie15.objects;
+package dev.brammie15.core;
 
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;

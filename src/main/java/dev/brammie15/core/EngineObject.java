@@ -1,4 +1,4 @@
-package dev.brammie15.objects;
+package dev.brammie15.core;
 
 import com.raylib.java.textures.Texture2D;
 import dev.brammie15.managers.GameManager;

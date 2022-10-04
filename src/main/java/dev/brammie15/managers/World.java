@@ -1,7 +1,7 @@
 package dev.brammie15.managers;
 
 import com.raylib.java.raymath.Vector2;
-import dev.brammie15.objects.EngineObject;
+import dev.brammie15.core.EngineObject;
 import dev.brammie15.util.GridUtils;
 
 import java.util.ArrayList;
@@ -51,5 +51,10 @@ public class World implements CommonManager {
 
     @Override
     public void init(GameManager gameManager) {
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

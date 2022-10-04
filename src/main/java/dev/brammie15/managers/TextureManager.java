@@ -47,6 +47,8 @@ public class TextureManager implements CommonManager {
         this.addTexture("player", "textures/Farmer.png");
         this.addTexture("wheat", "textures/Wheat.png");
         this.addTexture("inventorySlot", "textures/inventorySlot.png");
+        this.addTexture("hoe", "textures/diamond_hoe.png");
+        this.addTexture("null", "textures/null.png");
     }
 
 

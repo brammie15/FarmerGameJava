@@ -35,5 +35,12 @@ public final class GameManager {
         rlj.core.InitWindow(width, height, title);
     }
 
+    public void dispose(){
+        textureManager.dispose();
+        renderManager.dispose();
+        inputManager.dispose();
+        inventoryManager.dispose();
+        world.dispose();
+    }
 
 }

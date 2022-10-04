@@ -32,4 +32,9 @@ public class InputManager implements CommonManager {
     public void init(GameManager gameManager) {
 
     }
+
+    @Override
+    public void dispose() {
+
+    }
 }

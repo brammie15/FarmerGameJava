@@ -1,5 +1,7 @@
 package dev.brammie15;
 
+import com.raylib.java.raymath.Vector2;
+
 import java.util.Random;
 
 public final class Constants {
@@ -12,4 +14,5 @@ public final class Constants {
     public static final int WINDOW_HEIGHT = TILE_HEIGHT * TILE_Y * SCALE;
     public static final Random rand = new Random();
 
+    public static final Vector2 ZERO = new Vector2(0, 0);
 }
