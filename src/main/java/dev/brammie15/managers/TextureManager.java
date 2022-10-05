@@ -3,6 +3,7 @@ package dev.brammie15.managers;
 import com.raylib.java.Raylib;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
+import dev.brammie15.util.ConsoleUtil;
 
 import java.io.File;
 import java.util.HashMap;
@@ -26,10 +27,10 @@ public class TextureManager implements CommonManager {
     public Texture2D getTexture(String name) {
         Texture2D texture = textureMap.get(name);
         if (texture == null) {
-            System.out.println("Texture not found: " + name);
+            ConsoleUtil.printError("Texture not found: " + name);
             return null;
         }
-        System.out.println("Found texture: " + name);
+        ConsoleUtil.printSuccess("Found texture: " + name);
         return textureMap.get(name);
     }
 
@@ -59,6 +60,7 @@ public class TextureManager implements CommonManager {
         for (File file : files) {
             this.addTexture(file.getName().split("\\.")[0], s + file.getName());
         }
+        ConsoleUtil.printSuccess("Loaded " + files.length + " textures");
     }
 
 

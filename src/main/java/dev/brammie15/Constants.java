@@ -15,4 +15,6 @@ public final class Constants {
     public static final Random rand = new Random();
 
     public static final Vector2 ZERO = new Vector2(0, 0);
+    public static final Vector2 ONE = new Vector2(1, 1);
+    public static final Vector2 SCALE_VECTOR = new Vector2(SCALE, SCALE);
 }

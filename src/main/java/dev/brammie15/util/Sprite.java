@@ -2,6 +2,7 @@ package dev.brammie15.util;
 
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
+import dev.brammie15.Constants;
 
 public class Sprite {
     public Texture2D texture;
@@ -9,7 +10,7 @@ public class Sprite {
 
     public Sprite() {
         this.texture = null;
-        this.transform = new Transform(new Vector2(0, 0), 0);
+        this.transform = new Transform(Constants.ZERO, Constants.ZERO);
         }
 
     public Sprite(Texture2D texture, Transform transform) {

@@ -10,9 +10,11 @@ import dev.brammie15.managers.GameManager;
 import dev.brammie15.managers.TextureManager;
 import dev.brammie15.core.EngineObject;
 import dev.brammie15.objects.*;
+import dev.brammie15.util.ConsoleUtil;
 import dev.brammie15.util.GridUtils;
 import dev.brammie15.util.Transform;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 public class Main {
@@ -21,19 +23,18 @@ public class Main {
         Raylib rlj = r.rlj;
         TextureManager textureManager = r.textureManager;
         r.init();
-        Texture2D sky = textureManager.getTexture("sky");
-
-        r.world.addObject("selectionIcon", new SelectionIcon(textureManager.getTexture("selection_icon"), new Transform(new Vector2(0, 0), Constants.SCALE), 10));
+        Texture2D sky_tex = textureManager.getTexture("sky");
+        r.world.addObject("selectionIcon", new SelectionIcon(textureManager.getTexture("selection_icon"), new Transform(new Vector2(0, 0), Constants.SCALE_VECTOR), 10));
 
         for (int i = 0; i < Constants.TILE_X; i++) {
             r.world.addObject("floor" + i, new FloorBlock(textureManager.getTexture("grass"), new Vector2(Constants.TILE_WIDTH * Constants.SCALE * i, Constants.WINDOW_HEIGHT - Constants.TILE_HEIGHT * Constants.SCALE), 0));
         }
 
         for (int i = 0; i < 3; i++) {
-            r.world.addObject("slot" + i,new InventorySlot(textureManager.getTexture("slot"), new Transform(GridUtils.gridPosToWorldPos(i,0), 7.26F), 9, i));
+            r.world.addObject("slot" + i,new InventorySlot(textureManager.getTexture("slot"), new Transform(GridUtils.gridPosToWorldPos(i,0), new Vector2(7.26F, 7.26F)), 9, i));
         }
         r.inventoryManager.setItemInSlot(1, new ItemStack(new Item(r.textureManager.getTexture("hoe"),"hoe", Constants.ZERO, 10), 1));
-
+        r.inventoryManager.setItemInSlot(2, new ItemStack(new Item(r.textureManager.getTexture("wheat_seeds"),"seed", Constants.ZERO, 10), 1));
         while (!rlj.core.WindowShouldClose()) {
             //Update
             SelectionIcon selectionIcon = (SelectionIcon) r.world.getObject("selectionIcon");
@@ -50,7 +51,7 @@ public class Main {
                         }
                         if(object instanceof InventorySlot){
                             ((InventorySlot) object).interact();
-                            System.out.println("Slot clicked id: " + ((InventorySlot) object).id);
+                            ConsoleUtil.printNormal("Slot clicked id: " + ((InventorySlot) object).id);
                         }
                     }
                 }
@@ -59,10 +60,11 @@ public class Main {
             //Render
             r.renderManager.beginRender();
 
-            rlj.textures.DrawTextureRec(sky, new Rectangle(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT), new Vector2(0, 0), Color.WHITE);
+            rlj.textures.DrawTextureRec(sky_tex, new Rectangle(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT), new Vector2(0, 0), Color.WHITE);
             for (EngineObject object : r.world.getRenderOrder()) {
                 object.draw(r);
             }
+
             r.inventoryManager.drawGizmo();
             r.renderManager.endRender();
         }

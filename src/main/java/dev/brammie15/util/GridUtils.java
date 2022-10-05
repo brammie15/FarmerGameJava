@@ -3,10 +3,12 @@ package dev.brammie15.util;
 import com.raylib.java.raymath.Vector2;
 import dev.brammie15.Constants;
 
+import java.io.Console;
+
 public class GridUtils {
     public static Vector2 gridPosToWorldPos(Vector2 gridPos){
         if(gridPos.x > Constants.TILE_X || gridPos.y > Constants.TILE_Y){
-            System.out.println("Position out of bounds");
+            ConsoleUtil.printWarning("Position out of bounds");
 
         }
         return new Vector2(gridPos.x * Constants.TILE_WIDTH * Constants.SCALE, gridPos.y * Constants.TILE_HEIGHT * Constants.SCALE);

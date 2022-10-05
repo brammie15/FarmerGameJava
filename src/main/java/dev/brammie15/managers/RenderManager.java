@@ -6,6 +6,7 @@ import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
+import dev.brammie15.Constants;
 import dev.brammie15.util.Sprite;
 import dev.brammie15.core.AdvancedObject;
 import dev.brammie15.core.EngineObject;
@@ -20,42 +21,36 @@ public class RenderManager implements CommonManager {
     public Texture2D no_texture;
 
     public void drawSprite(Sprite sprite) {
-        Texture2D texture;
-        if(sprite.texture == null){
-            texture = no_texture;
-        }else{
-            texture = sprite.texture;
-        }
+        Texture2D texture = checkIfTextureExists(sprite.texture);
         Rectangle source = new Rectangle(0, 0, texture.width, texture.height);
-        Rectangle destination = new Rectangle(sprite.transform.position.x, sprite.transform.position.y, sprite.transform.scale * texture.width, sprite.transform.scale * texture.height);
-        rlj.textures.DrawTextureEx(texture, sprite.transform.position, 0, sprite.transform.scale, Color.WHITE);
+        Rectangle destination = new Rectangle(sprite.transform.position.x, sprite.transform.position.y, sprite.transform.scale.x * texture.width, sprite.transform.scale.y * texture.height);
+        rTextures.DrawTexturePro(texture, source, destination, Constants.ZERO, 0, Color.WHITE);
+
     }
     public <T extends EngineObject> void drawObject(T object) {
         drawObject(object, Color.WHITE);
     }
 
     public <T extends EngineObject> void drawObject(T object, Color color) {
-        Texture2D texture;
-        if(object.sprite.texture == null){
-            texture = no_texture;
-        }else{
-            texture = object.sprite.texture;
-        }
+        Texture2D texture = checkIfTextureExists(object.sprite.texture);
         Rectangle source = new Rectangle(0, 0, texture.width, texture.height);
-        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * texture.width, object.transform.scale * texture.height);
-        rlj.textures.DrawTextureEx(texture, object.transform.position, 0, object.transform.scale, color);
+        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale.x * texture.width, object.transform.scale.y * texture.height);
+        rTextures.DrawTexturePro(texture, source, destination, Constants.ZERO, 0, color);
     }
 
     public <T extends AdvancedObject> void drawObject(T object) {
-        Texture2D texture;
-        if(object.sprite.texture == null){
-            texture = no_texture;
-        }else{
-            texture = object.sprite.texture;
-        }
+        Texture2D texture = checkIfTextureExists(object.sprite.texture);
         Rectangle source = new Rectangle(object.frameSize.x * object.currentFrame, 0, object.frameSize.x, texture.height);
-        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * object.frameSize.x, object.transform.scale * texture.height);
+        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale.x * object.frameSize.x, object.transform.scale.y * texture.height);
         rTextures.DrawTexturePro(texture, source, destination, new Vector2(0,0), 0,Color.WHITE);
+    }
+
+    public Texture2D checkIfTextureExists(Texture2D tex){
+        if(tex == null){
+            return no_texture;
+        }else{
+            return tex;
+        }
     }
 
     public void beginRender() {
@@ -85,7 +80,9 @@ public class RenderManager implements CommonManager {
 
     @Override
     public void init(GameManager gameManager) {
-        no_texture = gameManager.textureManager.getTexture("null");
+        //Manually load the NO_TEXTURE texture because if its loaded through TextureManager and it fails we get a chrash
+        no_texture = rTextures.LoadTexture("src/main/resources/textures/null.png");
+//        no_texture = gameManager.textureManager.getTexture("null");
     }
 
     @Override

@@ -2,6 +2,7 @@ package dev.brammie15.managers;
 
 import com.raylib.java.raymath.Vector2;
 import dev.brammie15.core.EngineObject;
+import dev.brammie15.util.ConsoleUtil;
 import dev.brammie15.util.GridUtils;
 
 import java.util.ArrayList;
@@ -35,14 +36,12 @@ public class World implements CommonManager {
         ArrayList<EngineObject> objects = new ArrayList<>();
         for (EngineObject object : world.values()) {
             Vector2 objectGridPos = GridUtils.screenPosToGridPos(object.transform.position);
-//            System.out.println("Objects pos: " + objectGridPos.x + ", " + objectGridPos.y);
             if (GridUtils.screenPosToGridPos(object.transform.position).x == gridPos.x && GridUtils.screenPosToGridPos(object.transform.position).y == gridPos.y) {
-//                System.out.println("Object found");
                 objects.add(object);
             }
         }
         if(objects.size() == 0){
-            System.out.println("Object not found");
+            ConsoleUtil.printError("No objects found at: " + gridPos.x + ", " + gridPos.y);
             return null;
         }else{
             return objects;

@@ -13,9 +13,9 @@ public class FloorBlock extends EngineObject implements Interactable {
     Plant plant;
 
     public FloorBlock(Texture2D texture2D, Vector2 position, int renderPriority) {
-        super(texture2D, new Transform(position, Constants.SCALE), renderPriority);
+        super(texture2D, new Transform(position, Constants.SCALE_VECTOR), renderPriority);
         Vector2 plantPos = new Vector2(position.x, position.y - Constants.TILE_HEIGHT * Constants.SCALE);
-        this.plant = new Plant(null, new Transform(plantPos, Constants.SCALE), 8, new Vector2(16,16), 1);
+        this.plant = new Plant(null, new Transform(plantPos, Constants.SCALE_VECTOR), 8, new Vector2(16,16), 1);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class FloorBlock extends EngineObject implements Interactable {
 
         switch (gm.inventoryManager.getCurrentItem().name){
             case "seed":
-                this.plant = new Plant(GameManager.getInstance().textureManager.getTexture("wheat_sheet"), new Transform(this.plant.transform.position, Constants.SCALE), 8, new Vector2(16,16), 1);
+                this.plant = new Plant(GameManager.getInstance().textureManager.getTexture("wheat_sheet"), new Transform(this.plant.transform.position, Constants.SCALE_VECTOR), 8, new Vector2(16,16), 1);
                 GameManager.getInstance().inventoryManager.slots.get(GameManager.getInstance().inventoryManager.selectedSlot).itemStack.use();
                 break;
             case "hoe":

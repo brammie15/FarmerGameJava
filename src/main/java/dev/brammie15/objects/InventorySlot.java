@@ -14,7 +14,7 @@ public class InventorySlot extends EngineObject implements Interactable {
         super(texture, transform, renderPriority);
         this.id = id;
         GameManager.getInstance().inventoryManager.registerInventorySlot(this, id);
-        System.out.println(id);
+//        System.out.println(id);
     }
 
     @Override
