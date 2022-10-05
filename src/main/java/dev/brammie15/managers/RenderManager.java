@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
 import dev.brammie15.util.Sprite;
 import dev.brammie15.core.AdvancedObject;
@@ -16,27 +17,45 @@ public class RenderManager implements CommonManager {
     public RenderManager(Raylib rlj) {
         this.rlj = rlj;
     }
-
+    public Texture2D no_texture;
 
     public void drawSprite(Sprite sprite) {
-        Rectangle source = new Rectangle(0, 0, sprite.texture.width, sprite.texture.height);
-        Rectangle destination = new Rectangle(sprite.transform.position.x, sprite.transform.position.y, sprite.transform.scale * sprite.texture.width, sprite.transform.scale * sprite.texture.height);
-        rlj.textures.DrawTextureEx(sprite.texture, sprite.transform.position, 0, sprite.transform.scale, Color.WHITE);
+        Texture2D texture;
+        if(sprite.texture == null){
+            texture = no_texture;
+        }else{
+            texture = sprite.texture;
+        }
+        Rectangle source = new Rectangle(0, 0, texture.width, texture.height);
+        Rectangle destination = new Rectangle(sprite.transform.position.x, sprite.transform.position.y, sprite.transform.scale * texture.width, sprite.transform.scale * texture.height);
+        rlj.textures.DrawTextureEx(texture, sprite.transform.position, 0, sprite.transform.scale, Color.WHITE);
     }
     public <T extends EngineObject> void drawObject(T object) {
         drawObject(object, Color.WHITE);
     }
 
     public <T extends EngineObject> void drawObject(T object, Color color) {
-        Rectangle source = new Rectangle(0, 0, object.sprite.texture.width, object.sprite.texture.height);
-        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * object.sprite.texture.width, object.transform.scale * object.sprite.texture.height);
-        rlj.textures.DrawTextureEx(object.sprite.texture, object.transform.position, 0, object.transform.scale, color);
+        Texture2D texture;
+        if(object.sprite.texture == null){
+            texture = no_texture;
+        }else{
+            texture = object.sprite.texture;
+        }
+        Rectangle source = new Rectangle(0, 0, texture.width, texture.height);
+        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * texture.width, object.transform.scale * texture.height);
+        rlj.textures.DrawTextureEx(texture, object.transform.position, 0, object.transform.scale, color);
     }
 
     public <T extends AdvancedObject> void drawObject(T object) {
-        Rectangle source = new Rectangle(object.frameSize.x * object.currentFrame, 0, object.frameSize.x, object.sprite.texture.height);
-        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * object.frameSize.x, object.transform.scale * object.sprite.texture.height);
-        rTextures.DrawTexturePro(object.sprite.texture, source, destination, new Vector2(0,0), 0,Color.WHITE);
+        Texture2D texture;
+        if(object.sprite.texture == null){
+            texture = no_texture;
+        }else{
+            texture = object.sprite.texture;
+        }
+        Rectangle source = new Rectangle(object.frameSize.x * object.currentFrame, 0, object.frameSize.x, texture.height);
+        Rectangle destination = new Rectangle(object.transform.position.x, object.transform.position.y, object.transform.scale * object.frameSize.x, object.transform.scale * texture.height);
+        rTextures.DrawTexturePro(texture, source, destination, new Vector2(0,0), 0,Color.WHITE);
     }
 
     public void beginRender() {
@@ -66,7 +85,7 @@ public class RenderManager implements CommonManager {
 
     @Override
     public void init(GameManager gameManager) {
-
+        no_texture = gameManager.textureManager.getTexture("null");
     }
 
     @Override

@@ -26,7 +26,7 @@ public class FloorBlock extends EngineObject implements Interactable {
 
         switch (gm.inventoryManager.getCurrentItem().name){
             case "seed":
-                this.plant = new Plant(GameManager.getInstance().textureManager.getTexture("plant"), new Transform(this.plant.transform.position, Constants.SCALE), 8, new Vector2(16,16), 1);
+                this.plant = new Plant(GameManager.getInstance().textureManager.getTexture("wheat_sheet"), new Transform(this.plant.transform.position, Constants.SCALE), 8, new Vector2(16,16), 1);
                 GameManager.getInstance().inventoryManager.slots.get(GameManager.getInstance().inventoryManager.selectedSlot).itemStack.use();
                 break;
             case "hoe":

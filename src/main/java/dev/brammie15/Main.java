@@ -23,14 +23,14 @@ public class Main {
         r.init();
         Texture2D sky = textureManager.getTexture("sky");
 
-        r.world.addObject("selectionIcon", new SelectionIcon(textureManager.getTexture("selectionIcon"), new Transform(new Vector2(0, 0), Constants.SCALE), 10));
+        r.world.addObject("selectionIcon", new SelectionIcon(textureManager.getTexture("selection_icon"), new Transform(new Vector2(0, 0), Constants.SCALE), 10));
 
         for (int i = 0; i < Constants.TILE_X; i++) {
             r.world.addObject("floor" + i, new FloorBlock(textureManager.getTexture("grass"), new Vector2(Constants.TILE_WIDTH * Constants.SCALE * i, Constants.WINDOW_HEIGHT - Constants.TILE_HEIGHT * Constants.SCALE), 0));
         }
 
         for (int i = 0; i < 3; i++) {
-            r.world.addObject("slot" + i,new InventorySlot(textureManager.getTexture("inventorySlot"), new Transform(GridUtils.gridPosToWorldPos(i,0), 7.26F), 9, i));
+            r.world.addObject("slot" + i,new InventorySlot(textureManager.getTexture("slot"), new Transform(GridUtils.gridPosToWorldPos(i,0), 7.26F), 9, i));
         }
         r.inventoryManager.setItemInSlot(1, new ItemStack(new Item(r.textureManager.getTexture("hoe"),"hoe", Constants.ZERO, 10), 1));
 

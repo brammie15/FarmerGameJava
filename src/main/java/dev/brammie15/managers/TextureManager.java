@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,18 +41,25 @@ public class TextureManager implements CommonManager {
 
     @Override
     public void init(GameManager gameManager){
-        this.addTexture("grass", "textures/grass.png");
-        this.addTexture("dirt", "textures/dirt.png");
-        this.addTexture("selectionIcon", "textures/Selection.png");
-        this.addTexture("sky", "textures/sky.png");
-        this.addTexture("player", "textures/Farmer.png");
-        this.addTexture("wheat", "textures/Wheat.png");
-        this.addTexture("inventorySlot", "textures/inventorySlot.png");
-        this.addTexture("hoe", "textures/diamond_hoe.png");
-        this.addTexture("null", "textures/null.png");
+//        this.addTexture("grass", "textures/grass.png");
+//        this.addTexture("dirt", "textures/dirt.png");
+//        this.addTexture("selectionIcon", "textures/selection_icon.png");
+//        this.addTexture("sky", "textures/sky.png");
+//        this.addTexture("player", "farmer/Farmer.png");
+//        this.addTexture("wheat", "textures/wheat_sheet.png");
+//        this.addTexture("inventorySlot", "textures/inventory_slot.png");
+//        this.addTexture("hoe", "textures/hoe.png");
+//        this.addTexture("null", "textures/null.png");
+        getFileNames("textures/");
     }
 
-
+    public void getFileNames(String s) {
+        File folder = new File("src/main/resources/" + s);
+        File[] files = folder.listFiles();
+        for (File file : files) {
+            this.addTexture(file.getName().split("\\.")[0], s + file.getName());
+        }
+    }
 
 
 }

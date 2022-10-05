@@ -53,7 +53,7 @@ public class InventoryManager implements CommonManager{
 
     @Override
     public void init(GameManager gameManager) {
-        this.selectionSprite = new Sprite(gameManager.textureManager.getTexture("selectionIcon"), new Transform(new Vector2(0, 0), Constants.SCALE));
+        this.selectionSprite = new Sprite(gameManager.textureManager.getTexture("selection_icon"), new Transform(new Vector2(0, 0), Constants.SCALE));
     }
 
     @Override

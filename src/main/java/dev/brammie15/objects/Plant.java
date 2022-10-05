@@ -8,7 +8,7 @@ import dev.brammie15.managers.GameManager;
 import dev.brammie15.util.Transform;
 
 public class Plant extends AdvancedObject {
-    final Texture2D texture = GameManager.getInstance().textureManager.getTexture("wheat");
+    final Texture2D texture = GameManager.getInstance().textureManager.getTexture("wheat_sheet");
 
     public Plant(Texture2D texture2D, Transform transform, int maxFrame, Vector2 frameSize, int renderPriority) {
         super(null, transform, 8, new Vector2(16,16), renderPriority);
