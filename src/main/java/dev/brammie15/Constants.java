@@ -12,6 +12,7 @@ public final class Constants {
     public static final int SCALE = 10;
     public static final int WINDOW_WIDTH = TILE_WIDTH * TILE_X * SCALE;
     public static final int WINDOW_HEIGHT = TILE_HEIGHT * TILE_Y * SCALE;
+    public static final int TICK_RATE = 30;
     public static final Random rand = new Random();
 
     public static final Vector2 ZERO = new Vector2(0, 0);

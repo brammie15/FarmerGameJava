@@ -17,8 +17,8 @@ public class World implements CommonManager {
     public <T extends EngineObject> void addObject(String id, T object) {
         world.put(id, object);
     }
-
-    public ArrayList<EngineObject> objects = new ArrayList<>();
+    //Legacy
+//    public ArrayList<EngineObject> objects = new ArrayList<>();
 
     public EngineObject getObject(String id) {
         return world.get(id);

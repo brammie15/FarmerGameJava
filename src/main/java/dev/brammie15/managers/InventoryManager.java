@@ -2,6 +2,7 @@ package dev.brammie15.managers;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector2;
 import dev.brammie15.Constants;
 import dev.brammie15.objects.InventorySlot;
@@ -42,7 +43,8 @@ public class InventoryManager implements CommonManager{
 
     public void setItemInSlot(int id, ItemStack item){
         item.item.transform.position = slots.get(id).transform.position;
-
+        item.item.transform.scale = slots.get(id).transform.scale;
+        item.item.transform.position = Raymath.Vector2Vector2AddValue(item.item.transform.position, 0.1f * Constants.TILE_WIDTH * Constants.SCALE);
         slots.get(id).itemStack = item;
     }
 

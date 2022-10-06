@@ -1,6 +1,7 @@
 package dev.brammie15.managers;
 
 import com.raylib.java.Raylib;
+import com.raylib.java.text.Font;
 import com.raylib.java.textures.Texture2D;
 import com.raylib.java.textures.rTextures;
 import dev.brammie15.util.ConsoleUtil;
@@ -11,9 +12,10 @@ import java.util.Map;
 
 public class TextureManager implements CommonManager {
     public final Map<String, Texture2D> textureMap = new HashMap<>();
-
+    public Font font;
 
     public TextureManager(Raylib rlj){
+
     }
 
     public void addTexture(String name, String path) {
@@ -42,6 +44,8 @@ public class TextureManager implements CommonManager {
 
     @Override
     public void init(GameManager gameManager){
+        ConsoleUtil.printNormal("Loading textures...");
+        font = gameManager.rlj.text.LoadFont("src/main/resources/font.otf");
 //        this.addTexture("grass", "textures/grass.png");
 //        this.addTexture("dirt", "textures/dirt.png");
 //        this.addTexture("selectionIcon", "textures/selection_icon.png");
